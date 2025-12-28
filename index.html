@@ -39,10 +39,10 @@
 :root{
   --h: 215px;          /* Banner-Höhe */
   --speed: 18s;        /* Loop-Geschwindigkeit */
-  --flyTop: -34px;     /* ✅ noch höher (z.B. -28 / -34 / -40) */
+  --flyTop: -34px;     /* Konvoi sehr hoch */
 }
 
-/* 🖼️ Background: Desktop = max Größe (nicht hochskaliert), erst kleiner = cover */
+/* 🖼️ Background: Desktop = max Größe (nicht hochskaliert), Mobile = cover */
 .rkCityBanner{
   height: var(--h);
   max-width: 100%;
@@ -57,7 +57,7 @@
   .rkCityBanner{ background-size: cover; }
 }
 
-/* Konvoi extrem hoch (aber nix hängt raus -> overflow hidden) */
+/* Konvoi hoch */
 .rkTrack{
   height:100%;
   display:flex;
@@ -103,7 +103,7 @@
   pointer-events:none;
 }
 
-/* 🚗 Auto (normal) + Reaktion (kein Scheinwerfer-Glow) */
+/* 🚗 Auto */
 .rkCar{
   width:190px;
   height:135px;
@@ -114,6 +114,7 @@
 }
 .rkCar img{ width:100%; height:100%; object-fit:contain; }
 
+/* Auto reagiert bei Wolken-Hover */
 .rkConvoy:has(.rkCloud:hover) .rkCar{
   transform: translateX(6px) rotate(-0.6deg);
   filter: drop-shadow(0 30px 38px rgba(0,0,0,.52)) contrast(1.07);
@@ -127,7 +128,7 @@
   100%{ transform: translateY(0); }
 }
 
-/* ☁️ Wolken (alle Verschönerungen) */
+/* ☁️ Wolken + Verschönerungen */
 .rkCloud{
   position: relative;
   display:inline-flex;
@@ -140,7 +141,6 @@
   color: #142035;
   text-decoration: none;
 
-  /* Shine + Cloud-Fill (transparent) */
   background:
     linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.28) 45%, rgba(255,255,255,0) 60%),
     linear-gradient(180deg, rgba(255,255,255,.88), rgba(233,241,255,.68));
@@ -157,28 +157,22 @@
   will-change: transform;
   overflow: visible;
 
-  /* Schwebe ohne Random-Transforms zu zerstören */
   translate: 0 0;
-
-  /* ✅ Shine + Float auf ALLEN */
   animation: shine 5.6s ease-in-out infinite, floatCloud 6.6s ease-in-out infinite;
 }
 
-/* Shine */
 @keyframes shine{
   0%   { background-position: -240% 0, 0 0; }
   55%  { background-position: 240% 0, 0 0; }
   100% { background-position: 240% 0, 0 0; }
 }
-
-/* Schweben (nutzt translate property) */
 @keyframes floatCloud{
   0%   { translate: 0 0; }
   50%  { translate: 0 -7px; }
   100% { translate: 0 0; }
 }
 
-/* ✅ Delay pro Wolke (Shine & Float getrennt versetzt) */
+/* Delay pro Wolke */
 .rkConvoy a.rkCloud:nth-of-type(1){ animation-delay: .0s, .0s; }
 .rkConvoy a.rkCloud:nth-of-type(2){ animation-delay: .7s, .25s; }
 .rkConvoy a.rkCloud:nth-of-type(3){ animation-delay: 1.4s, .5s; }
@@ -186,7 +180,7 @@
 .rkConvoy a.rkCloud:nth-of-type(5){ animation-delay: 2.8s, 1.0s; }
 .rkConvoy a.rkCloud:nth-of-type(6){ animation-delay: 3.5s, 1.25s; }
 
-/* Wolkenblasen (wolkiger) */
+/* Wolkenblasen */
 .rkCloud::before,
 .rkCloud::after{
   content:"";
@@ -220,14 +214,7 @@
 .rkConvoy a.rkCloud:nth-of-type(5){ transform: scale(.96) translateY(-3px); }
 .rkConvoy a.rkCloud:nth-of-type(6){ transform: scale(1.03) translateY(1px); }
 
-/* Blasenpositionen randomisieren */
-.rkConvoy a.rkCloud:nth-of-type(2)::before{ left:10px; top:-18px; }
-.rkConvoy a.rkCloud:nth-of-type(3)::before{ left:26px; top:-26px; }
-.rkConvoy a.rkCloud:nth-of-type(4)::before{ left:14px; top:-16px; }
-.rkConvoy a.rkCloud:nth-of-type(5)::before{ left:22px; top:-22px; }
-.rkConvoy a.rkCloud:nth-of-type(6)::before{ left:16px; top:-28px; }
-
-/* Hover: Puff + Wobble + Glow */
+/* Hover: Puff + Wobble + Sparkles */
 .rkCloud:hover{
   transform: translateY(-12px) scale(1.07) rotate(1deg);
   box-shadow:
@@ -244,17 +231,13 @@
   55%  { transform: translateY(-12px) scale(1.07) rotate(-1.0deg); }
   100% { transform: translateY(-12px) scale(1.07) rotate(0deg); }
 }
-.rkCloud:hover span{
-  animation: puff .35s ease-out 1;
-}
+.rkCloud:hover span{ animation: puff .35s ease-out 1; }
 @keyframes puff{
   0%{ transform: scale(1); }
   50%{ transform: scale(1.12); }
   100%{ transform: scale(1); }
 }
 
-/* Sparkles/Wind */
-.rkCloud::marker{ content:""; }
 .rkCloud::after{
   content:"";
   position:absolute;
@@ -267,9 +250,7 @@
     radial-gradient(circle, rgba(255,255,255,.8) 0 1.8px, transparent 3px) 55% 80% / 14px 14px no-repeat;
   transform: translateY(6px);
 }
-.rkCloud:hover::after{
-  animation: sparkle .45s ease-out 1;
-}
+.rkCloud:hover::after{ animation: sparkle .45s ease-out 1; }
 @keyframes sparkle{
   0%   { opacity:0; transform: translateY(8px) scale(.9); }
   35%  { opacity:1; transform: translateY(0)  scale(1); }
@@ -278,7 +259,7 @@
 
 /* Mobile */
 @media (max-width: 680px){
-  :root{ --h: 175px; --speed: 20s; --flyTop: -24px; }
+  :root{ --h: 175px; --speed: 20s; --flyTop: -28px; }
   .rkCar{ width:165px; height:118px; }
   .rkCloud{ padding: 16px 26px; font-size: 20px; }
   .rkConvoy{ gap: 16px; }
@@ -292,3 +273,12 @@
   .rkCloud{ animation: none !important; }
 }
 </style>
+
+<script>
+  // ✅ Fix: Links sollen NICHT im iframe öffnen, sondern im Hauptfenster
+  document.querySelectorAll('a[href]').forEach(link => {
+    link.setAttribute('target', '_top');
+    link.setAttribute('rel', 'noopener');
+  });
+</script>
+
