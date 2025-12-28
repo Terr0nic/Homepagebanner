@@ -1,72 +1,81 @@
-<!-- ☁️🚗 Rakowski Premium Drive Banner -->
-<div class="rkCityBanner">
-  <div class="rkTrack">
-    <div class="rkLoop">
-
-      <!-- KONVOI 1 -->
-      <div class="rkConvoy">
-        <div class="rkCar" aria-hidden="true">
-          <img src="https://image.jimcdn.com/app/cms/image/transf/dimension=320x10000:format=png/path/s91fafdaaa718653a/image/ifc8ee5d4fcd84b85/version/1766862045/image.png" alt="">
-        </div>
-
-        <a class="rkCloud" href="https://www.fahrschule-rakowski.eu/termine/"><span>Termine</span></a>
-        <a class="rkCloud" href="https://www.fahrschule-rakowski.eu/seminare/"><span>Seminare</span></a>
-        <a class="rkCloud" href="https://www.fahrschule-rakowski.eu/bkf-lkw-bus/"><span>BKF / LKW / BUS</span></a>
-        <a class="rkCloud" href="https://www.fahrschule-rakowski.eu/kontakt/"><span>Kontakt</span></a>
-        <a class="rkCloud" href="https://www.fahrschule-rakowski.eu/deine-fahrschule/"><span>Über uns</span></a>
-        <a class="rkCloud" href="https://www.fahrschule-rakowski.eu/faq-1/"><span>FAQ</span></a>
-      </div>
-
-      <!-- KONVOI 2 (Duplikat für Loop) -->
-      <div class="rkConvoy" aria-hidden="true">
-        <div class="rkCar">
-          <img src="https://image.jimcdn.com/app/cms/image/transf/dimension=320x10000:format=png/path/s91fafdaaa718653a/image/ifc8ee5d4fcd84b85/version/1766862045/image.png" alt="">
-        </div>
-
-        <a class="rkCloud" href="https://www.fahrschule-rakowski.eu/termine/"><span>Termine</span></a>
-        <a class="rkCloud" href="https://www.fahrschule-rakowski.eu/seminare/"><span>Seminare</span></a>
-        <a class="rkCloud" href="https://www.fahrschule-rakowski.eu/bkf-lkw-bus/"><span>BKF / LKW / BUS</span></a>
-        <a class="rkCloud" href="https://www.fahrschule-rakowski.eu/kontakt/"><span>Kontakt</span></a>
-        <a class="rkCloud" href="https://www.fahrschule-rakowski.eu/deine-fahrschule/"><span>Über uns</span></a>
-        <a class="rkCloud" href="https://www.fahrschule-rakowski.eu/faq-1/"><span>FAQ</span></a>
-      </div>
-
-    </div>
-  </div>
-</div>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Homepagebanner</title>
 
 <style>
 :root{
-  --h: 215px;          /* Banner-Höhe */
-  --speed: 18s;        /* Loop-Geschwindigkeit */
-  --flyTop: -34px;     /* Konvoi sehr hoch */
+  --h: 230px;          /* Bannerhöhe */
+  --speed: 18s;        /* Fahrgeschwindigkeit */
+  --flyTop: -62px;     /* ✅ so hoch wie möglich am Rand */
 }
 
-/* 🖼️ Background: Desktop = max Größe (nicht hochskaliert), Mobile = cover */
+html, body{
+  margin:0;
+  padding:0;
+  background:transparent;
+}
+
+/* ===== Banner (Originalbild, Premium Glow) ===== */
 .rkCityBanner{
   height: var(--h);
-  max-width: 100%;
+  width: 100%;
   border-radius: 22px;
   overflow: hidden;
+  position: relative;
+
   background:
     url("https://image.jimcdn.com/app/cms/image/transf/dimension=1280x10000:format=png/path/s91fafdaaa718653a/image/i915b5ae6603d6562/version/1766858403/image.png")
     center 22% / auto var(--h) no-repeat;
-  box-shadow: 0 18px 55px rgba(0,0,0,.25);
+
+  box-shadow:
+    0 18px 55px rgba(0,0,0,.24),
+    0 0 0 1px rgba(255,255,255,.28),
+    0 0 34px rgba(255,255,255,.14);
 }
 @media (max-width: 1200px){
   .rkCityBanner{ background-size: cover; }
 }
 
-/* Konvoi hoch */
+/* Glass-Rand innen (dezent) */
+.rkCityBanner::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  border-radius: 22px;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.18),
+    inset 0 12px 22px rgba(255,255,255,.08);
+  opacity: .95;
+}
+
+/* Atmosphäre: ganz dezenter Nebel unten + warme Lichtkante oben links */
+.rkCityBanner::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(120% 60% at 50% 110%, rgba(255,255,255,.22) 0%, rgba(255,255,255,0) 62%),
+    radial-gradient(55% 55% at 15% 10%, rgba(255,238,190,.22) 0%, rgba(255,238,190,0) 60%);
+  mix-blend-mode: screen;
+  opacity: .85;
+}
+
+/* ===== Konvoi Layout ===== */
 .rkTrack{
   height:100%;
   display:flex;
   align-items:flex-start;
   padding-top: calc(10px + var(--flyTop));
   overflow:hidden;
+  position: relative;
+  z-index: 1;
 }
 
-/* Nahtloser Loop links -> rechts */
 .rkLoop{
   display:flex;
   width:max-content;
@@ -77,9 +86,8 @@
   from{ transform: translateX(-50%); }
   to  { transform: translateX(0); }
 }
-.rkCityBanner:hover .rkLoop{ animation-play-state: paused; }
 
-/* Konvoi */
+
 .rkConvoy{
   display:flex;
   align-items:center;
@@ -89,7 +97,7 @@
   position:relative;
 }
 
-/* Bodenschatten */
+/* Bodenschatten (Tiefe) */
 .rkConvoy::after{
   content:"";
   position:absolute;
@@ -97,68 +105,81 @@
   right:80px;
   bottom:-18px;
   height:34px;
-  background: radial-gradient(closest-side, rgba(0,0,0,.35), transparent 72%);
+  background: radial-gradient(closest-side, rgba(0,0,0,.30), transparent 72%);
   filter: blur(10px);
   opacity:.85;
   pointer-events:none;
 }
 
-/* 🚗 Auto */
+/* ===== Auto (größer + Depth + smooth) ===== */
 .rkCar{
-  width:190px;
-  height:135px;
-  filter: drop-shadow(0 24px 30px rgba(0,0,0,.45)) contrast(1.05);
+  width: 260px;  /* ✅ größer */
+  height: 175px;
+  filter: drop-shadow(0 30px 40px rgba(0,0,0,.55)) contrast(1.1) saturate(1.05);
   transition: transform .18s ease, filter .18s ease;
-  will-change: transform, filter;
   flex: 0 0 auto;
 }
-.rkCar img{ width:100%; height:100%; object-fit:contain; }
-
-/* Auto reagiert bei Wolken-Hover */
-.rkConvoy:has(.rkCloud:hover) .rkCar{
-  transform: translateX(6px) rotate(-0.6deg);
-  filter: drop-shadow(0 30px 38px rgba(0,0,0,.52)) contrast(1.07);
-}
-.rkConvoy:has(.rkCloud:hover) .rkCar img{
-  animation: carBounce .35s ease-out 1;
-}
-@keyframes carBounce{
-  0%{ transform: translateY(0); }
-  40%{ transform: translateY(-3px); }
-  100%{ transform: translateY(0); }
+.rkCar img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  will-change: transform, filter;
 }
 
-/* ☁️ Wolken + Verschönerungen */
+/* Smooth Motion (sehr dezenter Blur-Puls) */
+@keyframes carBlur{
+  0%,100%{ filter: blur(0px); }
+  55%{ filter: blur(.35px); }
+}
+
+/* Auto „Intro-Anfahr-Gefühl“: jedes Mal wenn ein Konvoi reinkommt */
+.rkC1 .rkCar img{
+  animation: carIntro var(--speed) ease-out infinite, carBlur 1.6s ease-in-out infinite;
+}
+.rkC2 .rkCar img{
+  animation: carIntro var(--speed) ease-out infinite, carBlur 1.6s ease-in-out infinite;
+  animation-delay: -9s, 0s; /* ✅ halbe Strecke bei 18s */
+}
+@keyframes carIntro{
+  0%   { transform: translateY(0) scale(1); }
+  2.2% { transform: translateY(-3px) scale(1.03); }
+  4.8% { transform: translateY(0) scale(1); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+/* ===== Wolken: durchsichtig + fluffig + unterschiedlich ===== */
 .rkCloud{
   position: relative;
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  padding: 18px 40px;
+  padding: 18px 44px;
   border-radius: 999px;
   font-weight: 900;
   font-size: 22px;
   color: #142035;
-  text-decoration: none;
+  user-select: none;
+  cursor: default;
 
+  /* ✅ mehr Durchsicht */
   background:
-    linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.28) 45%, rgba(255,255,255,0) 60%),
-    linear-gradient(180deg, rgba(255,255,255,.88), rgba(233,241,255,.68));
+    linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.20) 45%, rgba(255,255,255,0) 60%),
+    linear-gradient(180deg, rgba(255,255,255,.72), rgba(233,241,255,.50));
   background-size: 240% 100%, 100% 100%;
 
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
 
   box-shadow:
-    0 20px 40px rgba(0,0,0,.25),
-    inset 0 4px 0 rgba(255,255,255,.90);
+    0 22px 44px rgba(0,0,0,.26),
+    inset 0 4px 0 rgba(255,255,255,.72);
 
   transition: transform .22s ease, box-shadow .22s ease, filter .22s ease;
   will-change: transform;
   overflow: visible;
-
   translate: 0 0;
-  animation: shine 5.6s ease-in-out infinite, floatCloud 6.6s ease-in-out infinite;
+
+  animation: shine 5.6s ease-in-out infinite, floatA 7.2s ease-in-out infinite;
 }
 
 @keyframes shine{
@@ -166,64 +187,73 @@
   55%  { background-position: 240% 0, 0 0; }
   100% { background-position: 240% 0, 0 0; }
 }
-@keyframes floatCloud{
-  0%   { translate: 0 0; }
-  50%  { translate: 0 -7px; }
-  100% { translate: 0 0; }
-}
 
-/* Delay pro Wolke */
-.rkConvoy a.rkCloud:nth-of-type(1){ animation-delay: .0s, .0s; }
-.rkConvoy a.rkCloud:nth-of-type(2){ animation-delay: .7s, .25s; }
-.rkConvoy a.rkCloud:nth-of-type(3){ animation-delay: 1.4s, .5s; }
-.rkConvoy a.rkCloud:nth-of-type(4){ animation-delay: 2.1s, .75s; }
-.rkConvoy a.rkCloud:nth-of-type(5){ animation-delay: 2.8s, 1.0s; }
-.rkConvoy a.rkCloud:nth-of-type(6){ animation-delay: 3.5s, 1.25s; }
+/* unterschiedliche Float-Profile */
+@keyframes floatA{ 0%{translate:0 0} 50%{translate:0 -8px} 100%{translate:0 0} }
+@keyframes floatB{ 0%{translate:0 0} 50%{translate:0 -12px} 100%{translate:0 0} }
+@keyframes floatC{ 0%{translate:0 0} 50%{translate:0 -7px} 100%{translate:0 0} }
+@keyframes floatD{ 0%{translate:0 0} 50%{translate:0 -14px} 100%{translate:0 0} }
 
-/* Wolkenblasen */
+/* pro Wolke andere Bewegung */
+.rkConvoy .rkCloud:nth-of-type(2){ animation: shine 5.6s ease-in-out infinite, floatB 7.8s ease-in-out infinite; }
+.rkConvoy .rkCloud:nth-of-type(3){ animation: shine 5.6s ease-in-out infinite, floatC 6.6s ease-in-out infinite; }
+.rkConvoy .rkCloud:nth-of-type(4){ animation: shine 5.6s ease-in-out infinite, floatD 8.4s ease-in-out infinite; }
+.rkConvoy .rkCloud:nth-of-type(5){ animation: shine 5.6s ease-in-out infinite, floatA 7.1s ease-in-out infinite; }
+
+/* Delays */
+.rkConvoy .rkCloud:nth-of-type(2){ animation-delay: .0s, .1s; }
+.rkConvoy .rkCloud:nth-of-type(3){ animation-delay: .9s, .4s; }
+.rkConvoy .rkCloud:nth-of-type(4){ animation-delay: 1.8s, .7s; }
+.rkConvoy .rkCloud:nth-of-type(5){ animation-delay: 2.7s, 1.0s; }
+
+/* ✅ Fluff: Wolkenblasen (random) */
 .rkCloud::before,
 .rkCloud::after{
   content:"";
   position:absolute;
-  background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(238,244,255,.72));
+  background: linear-gradient(180deg, rgba(255,255,255,.78), rgba(238,244,255,.55));
   border-radius: 50%;
-  box-shadow: inset 0 3px 0 rgba(255,255,255,.92);
+  box-shadow: inset 0 3px 0 rgba(255,255,255,.70);
   z-index:-1;
 }
-.rkCloud::before{ width:52px; height:52px; left:18px; top:-22px; }
-.rkCloud::after { width:38px; height:38px; right:22px; top:-14px; }
+.rkCloud::before{ width:60px; height:60px; left:14px; top:-28px; opacity:.95; }
+.rkCloud::after { width:42px; height:42px; right:18px; top:-18px; opacity:.92; }
 
-.rkCloud span{ position: relative; z-index: 1; }
+.rkCloud span{ position: relative; z-index:1; }
 .rkCloud span::before,
 .rkCloud span::after{
   content:"";
   position:absolute;
-  background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(238,244,255,.72));
+  background: linear-gradient(180deg, rgba(255,255,255,.78), rgba(238,244,255,.55));
   border-radius:50%;
-  box-shadow: inset 0 3px 0 rgba(255,255,255,.92);
   z-index:-1;
+  opacity:.92;
 }
-.rkCloud span::before{ width:44px; height:44px; left:2px; bottom:-18px; }
-.rkCloud span::after { width:32px; height:32px; right:6px; bottom:-14px; }
+.rkCloud span::before{ width:48px; height:48px; left:2px; bottom:-18px; }
+.rkCloud span::after { width:34px; height:34px; right:6px; bottom:-14px; }
 
-/* Random Look */
-.rkConvoy a.rkCloud:nth-of-type(1){ transform: scale(1.02) translateY(-2px); }
-.rkConvoy a.rkCloud:nth-of-type(2){ transform: scale(.98) translateY(3px); }
-.rkConvoy a.rkCloud:nth-of-type(3){ transform: scale(1.05) translateY(-1px); }
-.rkConvoy a.rkCloud:nth-of-type(4){ transform: scale(1.00) translateY(2px); }
-.rkConvoy a.rkCloud:nth-of-type(5){ transform: scale(.96) translateY(-3px); }
-.rkConvoy a.rkCloud:nth-of-type(6){ transform: scale(1.03) translateY(1px); }
+/* Shapes leicht randomisieren */
+.rkConvoy .rkCloud:nth-of-type(2)::before{ left:10px; top:-26px; width:64px; height:64px; }
+.rkConvoy .rkCloud:nth-of-type(3)::before{ left:26px; top:-30px; width:58px; height:58px; }
+.rkConvoy .rkCloud:nth-of-type(4)::before{ left:16px; top:-22px; width:66px; height:66px; }
+.rkConvoy .rkCloud:nth-of-type(5)::before{ left:22px; top:-28px; width:56px; height:56px; }
 
-/* Hover: Puff + Wobble + Sparkles */
+/* Wolken „random placement“ */
+.rkConvoy .rkCloud:nth-of-type(2){ transform: scale(1.03) translateY(-2px); }
+.rkConvoy .rkCloud:nth-of-type(3){ transform: scale(.98) translateY(3px); }
+.rkConvoy .rkCloud:nth-of-type(4){ transform: scale(1.05) translateY(-1px); }
+.rkConvoy .rkCloud:nth-of-type(5){ transform: scale(1.00) translateY(2px); }
+
+/* Hover-Puff + Wobble */
 .rkCloud:hover{
   transform: translateY(-12px) scale(1.07) rotate(1deg);
   box-shadow:
-    0 30px 70px rgba(0,0,0,.32),
-    0 0 0 6px rgba(255,255,255,.16),
-    inset 0 4px 0 rgba(255,255,255,.92);
+    0 34px 80px rgba(0,0,0,.30),
+    0 0 0 6px rgba(255,255,255,.14),
+    inset 0 4px 0 rgba(255,255,255,.72);
   filter: saturate(1.06);
   z-index: 5;
-  animation: shine 5.6s ease-in-out infinite, floatCloud 6.6s ease-in-out infinite, cloudWobble .55s ease-in-out 1;
+  animation: shine 5.6s ease-in-out infinite, floatB 7.8s ease-in-out infinite, cloudWobble .55s ease-in-out 1;
 }
 @keyframes cloudWobble{
   0%   { transform: translateY(-12px) scale(1.07) rotate(0deg); }
@@ -231,39 +261,54 @@
   55%  { transform: translateY(-12px) scale(1.07) rotate(-1.0deg); }
   100% { transform: translateY(-12px) scale(1.07) rotate(0deg); }
 }
-.rkCloud:hover span{ animation: puff .35s ease-out 1; }
-@keyframes puff{
-  0%{ transform: scale(1); }
-  50%{ transform: scale(1.12); }
-  100%{ transform: scale(1); }
-}
 
-.rkCloud::after{
+/* ===== Rare Sparkles (selten, dezent) ===== */
+.rkCloud i{ display:none; } /* falls mal irgendwo was reinkommt */
+
+.rkCloud::marker{ content:""; }
+
+.rkCloud .spark{ display:none; }
+
+.rkCloud{
+  /* Platz für Sparkles */
+}
+.rkConvoy .rkCloud::after{
   content:"";
   position:absolute;
   inset:-18px;
   pointer-events:none;
   opacity:0;
   background:
-    radial-gradient(circle, rgba(255,255,255,.9) 0 2px, transparent 3px) 15% 35% / 18px 18px no-repeat,
-    radial-gradient(circle, rgba(255,255,255,.7) 0 2px, transparent 3px) 82% 55% / 16px 16px no-repeat,
-    radial-gradient(circle, rgba(255,255,255,.8) 0 1.8px, transparent 3px) 55% 80% / 14px 14px no-repeat;
-  transform: translateY(6px);
-}
-.rkCloud:hover::after{ animation: sparkle .45s ease-out 1; }
-@keyframes sparkle{
-  0%   { opacity:0; transform: translateY(8px) scale(.9); }
-  35%  { opacity:1; transform: translateY(0)  scale(1); }
-  100% { opacity:0; transform: translateY(-8px) scale(1.05); }
+    radial-gradient(circle, rgba(255,255,255,.9) 0 2px, transparent 3px) 15% 35%/18px 18px no-repeat,
+    radial-gradient(circle, rgba(255,255,255,.7) 0 2px, transparent 3px) 82% 55%/16px 16px no-repeat,
+    radial-gradient(circle, rgba(255,255,255,.8) 0 1.8px, transparent 3px) 55% 80%/14px 14px no-repeat;
+  transform: translateY(8px) scale(.95);
 }
 
-/* Mobile */
-@media (max-width: 680px){
-  :root{ --h: 175px; --speed: 20s; --flyTop: -28px; }
-  .rkCar{ width:165px; height:118px; }
-  .rkCloud{ padding: 16px 26px; font-size: 20px; }
-  .rkConvoy{ gap: 16px; }
-  .rkConvoy::after{ left: 70px; right: 70px; }
+/* pro Wolke anderes seltenes Timing */
+.rkConvoy .rkCloud:nth-of-type(2)::after{ animation: rareSparkle 9.5s ease-in-out infinite; }
+.rkConvoy .rkCloud:nth-of-type(3)::after{ animation: rareSparkle 12.5s ease-in-out infinite; animation-delay: -3s; }
+.rkConvoy .rkCloud:nth-of-type(4)::after{ animation: rareSparkle 10.8s ease-in-out infinite; animation-delay: -6s; }
+.rkConvoy .rkCloud:nth-of-type(5)::after{ animation: rareSparkle 13.2s ease-in-out infinite; animation-delay: -2s; }
+
+@keyframes rareSparkle{
+  0%, 86%   { opacity:0; transform: translateY(8px) scale(.95); }
+  90%       { opacity:.30; transform: translateY(0) scale(1); }
+  94%       { opacity:.12; transform: translateY(-6px) scale(1.03); }
+  100%      { opacity:0; transform: translateY(-8px) scale(1.05); }
+}
+
+/* ===== Mobile ===== */
+@media (max-width:680px){
+  :root{
+    --h: 190px;
+    --speed: 20s;
+    --flyTop: -48px;  /* mobile etwas weniger extrem */
+  }
+  .rkCar{ width:210px; height:145px; }
+  .rkCloud{ padding: 16px 28px; font-size: 20px; }
+  /* bei speed 20s halbe Strecke = 10s */
+  .rkC2 .rkCar img{ animation-delay: -10s, 0s; }
 }
 
 /* Reduced motion */
@@ -271,14 +316,43 @@
   .rkLoop{ animation: none !important; }
   .rkCityBanner{ overflow-x: auto; }
   .rkCloud{ animation: none !important; }
+  .rkConvoy .rkCloud::after{ animation: none !important; }
 }
 </style>
+</head>
 
-<script>
-  // ✅ Fix: Links sollen NICHT im iframe öffnen, sondern im Hauptfenster
-  document.querySelectorAll('a[href]').forEach(link => {
-    link.setAttribute('target', '_top');
-    link.setAttribute('rel', 'noopener');
-  });
-</script>
+<body>
+  <div class="rkCityBanner">
+    <div class="rkTrack">
+      <div class="rkLoop">
+
+        <!-- Konvoi 1 -->
+        <div class="rkConvoy rkC1">
+          <div class="rkCar" aria-hidden="true">
+            <img src="https://image.jimcdn.com/app/cms/image/transf/dimension=320x10000:format=png/path/s91fafdaaa718653a/image/ifc8ee5d4fcd84b85/version/1766920436/image.png" alt="">
+          </div>
+
+          <div class="rkCloud" role="text"><span>MA-Innenstadt</span></div>
+          <div class="rkCloud" role="text"><span>MA-Seckenheim</span></div>
+          <div class="rkCloud" role="text"><span>MA-Hafen</span></div>
+          <div class="rkCloud" role="text"><span>LU-Hemshof</span></div>
+        </div>
+
+        <!-- Konvoi 2 -->
+        <div class="rkConvoy rkC2" aria-hidden="true">
+          <div class="rkCar">
+            <img src="https://image.jimcdn.com/app/cms/image/transf/dimension=320x10000:format=png/path/s91fafdaaa718653a/image/ifc8ee5d4fcd84b85/version/1766920436/image.png" alt="">
+          </div>
+
+          <div class="rkCloud" role="text"><span>MA-Innenstadt</span></div>
+          <div class="rkCloud" role="text"><span>MA-Seckenheim</span></div>
+          <div class="rkCloud" role="text"><span>MA-Hafen</span></div>
+          <div class="rkCloud" role="text"><span>LU-Hemshof</span></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>
 
